@@ -9,8 +9,11 @@ import { PostDetailsPage } from '../pages/PostDetailsPage';
 import { PostsListPage } from '../pages/PostsListPage';
 
 import '../style/cover.css';
+import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
-export const MainLayout = () => {
+export const MainLayout = injectMessage((props: InjectMessageProps) => {
+  console.log(`${props.message} MainLayout`);
+
   const { location } = useReactRouter();
   const [userId] = useLocalStorage('userId');
 
@@ -53,4 +56,4 @@ export const MainLayout = () => {
       </div>
     </div>
   );
-}
+});

@@ -3,7 +3,7 @@ import React from 'react';
 export const MessageContext = React.createContext('');
 
 export interface InjectMessageProps {
-  message: string;
+  message?: string;
 }
 
 export function injectMessage<T>(Component: (props: T & InjectMessageProps) => any) {

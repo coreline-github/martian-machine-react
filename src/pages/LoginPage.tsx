@@ -3,8 +3,11 @@ import { useLocalStorage, writeStorage, deleteFromStorage } from '@rehooks/local
 import useReactRouter from 'use-react-router';
 
 import '../style/login.css';
+import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
-export const LoginPage = () => {
+export const LoginPage = injectMessage((props: InjectMessageProps) => {
+  console.log(`${props.message} LoginPage`);
+
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -63,4 +66,4 @@ export const LoginPage = () => {
       </form>
     </div>
   );
-};
+});

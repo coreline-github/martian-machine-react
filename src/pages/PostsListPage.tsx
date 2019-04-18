@@ -3,8 +3,11 @@ import { useEffectAsync } from '../utils/use-effect-async';
 import { filterPosts, getPostsWithUsersAndComments } from '../api/api-client';
 import { IPostWithUserAndComments } from '../api/api-types';
 import { PostView } from '../components/PostView';
+import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
-export const PostsListPage = () => {
+export const PostsListPage = injectMessage((props: InjectMessageProps) => {
+  console.log(`${props.message} PostListPage`);
+
   const [posts, setPosts] = useState<IPostWithUserAndComments[]>([]);
   const [filterText, setFilterText] = useState('');
   const [loading, setLoading] = useState(true);
@@ -34,4 +37,4 @@ export const PostsListPage = () => {
       <div className="col-md-12 gap10" />
     </div>
   );
-};
+});

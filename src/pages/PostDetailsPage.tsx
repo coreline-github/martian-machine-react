@@ -4,11 +4,13 @@ import { useEffectAsync } from '../utils/use-effect-async';
 import { getPost } from '../api/api-client';
 import { IPostWithUserAndComments } from '../api/api-types';
 import { PostView } from '../components/PostView';
-import { IPrintNameProps } from '../utils/print-name-on-render';
+import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
-export type IProps = RouteComponentProps<{ id: string; }> & IPrintNameProps;
+export type IProps = RouteComponentProps<{ id: string; }>;
 
-export const PostDetailsPage = (props: IProps) => {
+export const PostDetailsPage = injectMessage((props: IProps & InjectMessageProps) => {
+  console.log(`${props.message} PostDetailsPage`);
+
   const [post, setPost] = useState<IPostWithUserAndComments | undefined>(undefined);
 
   const id = parseInt(props.match.params.id);
@@ -23,4 +25,4 @@ export const PostDetailsPage = (props: IProps) => {
   }
 
   return <PostView post={post} />;
-};
+});

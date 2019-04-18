@@ -8,11 +8,11 @@ import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 export const LoginPage = injectMessage((props: InjectMessageProps) => {
   console.log(`${props.message} LoginPage`);
 
+  const [userId] = useLocalStorage('userId');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const { history } = useReactRouter();
-  const [userId] = useLocalStorage('userId');
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

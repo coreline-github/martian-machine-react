@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 export const MessageContext = React.createContext('');
 
@@ -8,10 +8,10 @@ export interface InjectMessageProps {
 
 export function injectMessage<T>(Component: (props: T & InjectMessageProps) => any) {
   return (props: T) => {
+    const message = useContext(MessageContext);
+
     return (
-      <MessageContext.Consumer>
-        {message => <Component {...props} message={message} />}
-      </MessageContext.Consumer>
+      <Component {...props} message={message} />
     );
   }
 }

@@ -1,16 +1,21 @@
 import React from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route, Redirect } from 'react-router-dom';
 import cx from 'classnames';
 import useReactRouter from 'use-react-router';
-
-import '../style/cover.css';
+import { useLocalStorage } from '@rehooks/local-storage';
 
 import { LoginPage } from '../pages/LoginPage';
 import { PostDetailsPage } from '../pages/PostDetailsPage';
 import { PostsListPage } from '../pages/PostsListPage';
 
-export const MainLayout = () => {
+import '../style/cover.css';
+import { printNameOnRender } from '../utils/print-name-on-render';
+
+export const MainLayout = printNameOnRender(({ message }) => {
   const { location } = useReactRouter();
+  const [userId] = useLocalStorage('userId');
+
+  const isUserLoggedIn = !!userId;
 
   const path = location ? location.pathname : '';
 
@@ -22,29 +27,31 @@ export const MainLayout = () => {
             <h3 className="masthead-brand">Martian Machine Blogger</h3>
               <nav className="nav nav-masthead justify-content-center">
                 <Link className={cx('nav-link', path == '/' && 'active')} to="/">Home</Link>
-                <Link
-                  className={cx('nav-link', (path.startsWith('/app') || path.startsWith('/post')) && 'active')}
-                  to="/app"
-                >
-                  Posts
-                </Link>
+                {isUserLoggedIn &&
+                  <Link
+                    className={cx('nav-link', (path.startsWith('/app') || path.startsWith('/post')) && 'active')}
+                    to="/app"
+                  >
+                    Posts
+                  </Link>
+                }
               </nav>
           </div>
       </header>
-
-
         <Switch>
-          <Route exact path="/" component={LoginPage} />
-          <Route exact path="/app" component={PostsListPage} />
-          <Route exact path="/post/:id" component={PostDetailsPage} />
+          <Route exact path="/" render={props => <LoginPage {...props} message={message} />} />
+          {!isUserLoggedIn && <Redirect to="/" />}
+          <Route exact path="/app" render={props => <PostsListPage {...props} message={message} />} />
+          <Route exact path="/post/:id" render={props => <PostDetailsPage {...props} message={message} />} />
+          <Redirect to="/" />
         </Switch>
 
       <footer className="mastfoot mt-auto">
         <div className="inner">
-          <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+          ivo@coreline.agency
         </div>
       </footer>
       </div>
     </div>
   );
-}
+}, 'MainLayout');

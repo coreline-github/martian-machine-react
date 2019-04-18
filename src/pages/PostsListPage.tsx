@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
-import { useEffectAsync } from '../utils/useEffectAsync';
+import { useEffectAsync } from '../utils/use-effect-async';
 import { filterPosts, getPostsWithUsersAndComments } from '../api/api-client';
 import { IPostWithUserAndComments } from '../api/api-types';
 import { PostView } from '../components/PostView';
+import { printNameOnRender } from '../utils/print-name-on-render';
 
-export const PostsListPage = () => {
+export const PostsListPage = printNameOnRender(({ message }) => {
   const [posts, setPosts] = useState<IPostWithUserAndComments[]>([]);
   const [filterText, setFilterText] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffectAsync(async () => {
     setPosts(await getPostsWithUsersAndComments());
+    setLoading(false);
   }, []);
 
   const filteredPosts = filterPosts(posts, filterText);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -23,9 +30,9 @@ export const PostsListPage = () => {
       </div>
       <br />
       {filteredPosts.map(post => (
-        <PostView post={post} key={post.id}/>
+        <PostView post={post} key={post.id} message={message}/>
       ))}
       <div className="col-md-12 gap10" />
     </div>
   );
-}
+}, 'PostsListPage');

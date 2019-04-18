@@ -1,8 +1,9 @@
 import React from 'react';
 import { IPostWithUserAndComments } from '../api/api-types';
 import { Link } from 'react-router-dom';
+import { IPrintNameProps, printNameOnRender } from '../utils/print-name-on-render';
 
-export interface IProps {
+export interface IProps extends IPrintNameProps {
   post: IPostWithUserAndComments;
 }
 
@@ -10,7 +11,7 @@ const linkStyle = {
   textDecoration: 'none',
 };
 
-export const PostView = (props: IProps) => {
+export const PostView = printNameOnRender((props: IProps) => {
   const { post } = props;
 
   return (
@@ -34,4 +35,4 @@ export const PostView = (props: IProps) => {
       </div>
     </Link>
   );
-}
+}, 'PostView');

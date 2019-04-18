@@ -27,13 +27,12 @@ export const MainLayout = () => {
           </div>
       </header>
 
-      <main role="main" className="inner cover">
+
         <Switch>
           <Route exact path="/" component={LoginPage} />
           <Route exact path="/app" component={PostsListPage} />
           <Route exact path="/post/:id" component={PostDetailsPage} />
         </Switch>
-      </main>
 
       <footer className="mastfoot mt-auto">
         <div className="inner">

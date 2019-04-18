@@ -22,7 +22,12 @@ export const MainLayout = () => {
             <h3 className="masthead-brand">Martian Machine Blogger</h3>
               <nav className="nav nav-masthead justify-content-center">
                 <Link className={cx('nav-link', path == '/' && 'active')} to="/">Home</Link>
-                <Link className={cx('nav-link', path.startsWith('/app') && 'active')} to="/app">App</Link>
+                <Link
+                  className={cx('nav-link', (path.startsWith('/app') || path.startsWith('/post')) && 'active')}
+                  to="/app"
+                >
+                  Posts
+                </Link>
               </nav>
           </div>
       </header>

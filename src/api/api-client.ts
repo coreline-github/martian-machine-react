@@ -33,3 +33,14 @@ export async function getPostsWithUsersAndComments(): Promise<IPostWithUserAndCo
     comments: comments.filter(comment => comment.postId === post.id),
   }))
 }
+
+export function filterPosts(posts: IPostWithUserAndComments[], filterText: string) {
+  return posts.filter(post =>
+    post.user.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1 &&
+    post.user.email.toLowerCase().indexOf(filterText.toLowerCase()) > -1
+  );
+}
+
+export async function getPost(postId: number) {
+  return (await getPostsWithUsersAndComments()).filter(post => post.id === postId)[0];
+}

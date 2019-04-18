@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useEffectAsync } from '../utils/useEffectAsync';
-import { getPostsWithUsersAndComments } from '../api/api-client';
+import { filterPosts, getPostsWithUsersAndComments } from '../api/api-client';
 import { IPostWithUserAndComments } from '../api/api-types';
+import { PostView } from '../components/PostView';
 
 export const PostsListPage = () => {
   const [posts, setPosts] = useState<IPostWithUserAndComments[]>([]);
@@ -11,7 +12,7 @@ export const PostsListPage = () => {
     setPosts(await getPostsWithUsersAndComments());
   }, []);
 
-  const filteredPosts = posts.filter(post => post.user.name.toLowerCase().includes(filterText.toLowerCase()));
+  const filteredPosts = filterPosts(posts, filterText);
 
   return (
     <div>
@@ -22,24 +23,7 @@ export const PostsListPage = () => {
       </div>
       <br />
       {filteredPosts.map(post => (
-        <div className="col-md-10 blogShort" key={post.id}>
-          <h4>{post.title}</h4>
-          <em>by {post.user.name}</em>
-          <article>
-            <p>
-              {post.body}
-            </p>
-            {post.comments.map(comment => (
-              <div key={comment.id}>
-                {comment.userId && console.log('comment.userId', comment.userId)}
-                {comment.name} <em>~ {comment.userId ? comment.userId : 'Anonymous'}</em>
-              </div>
-            ))}
-          </article>
-          <br />
-          <br />
-          <br />
-        </div>
+        <PostView post={post} key={post.id}/>
       ))}
       <div className="col-md-12 gap10" />
     </div>

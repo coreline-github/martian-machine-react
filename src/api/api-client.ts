@@ -36,7 +36,7 @@ export async function getPostsWithUsersAndComments(): Promise<IPostWithUserAndCo
 
 export function filterPosts(posts: IPostWithUserAndComments[], filterText: string) {
   return posts.filter(post =>
-    post.user.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1 &&
+    post.user.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1 ||
     post.user.email.toLowerCase().indexOf(filterText.toLowerCase()) > -1
   );
 }

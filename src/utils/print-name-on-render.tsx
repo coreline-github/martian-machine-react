@@ -3,7 +3,7 @@ import React, { createContext } from 'react';
 export const MessageContext = createContext('missing message :(');
 
 export interface IPrintNameProps {
-  message: string;
+  message?: string;
 }
 
 export function printNameOnRender<T>(WrappedComponent: (props: T & IPrintNameProps) => any, componentName: string) {

@@ -9,9 +9,8 @@ import { PostDetailsPage } from '../pages/PostDetailsPage';
 import { PostsListPage } from '../pages/PostsListPage';
 
 import '../style/cover.css';
-import { printNameOnRender } from '../utils/print-name-on-render';
 
-export const MainLayout = printNameOnRender(({ message }) => {
+export const MainLayout = () => {
   const { location } = useReactRouter();
   const [userId] = useLocalStorage('userId');
 
@@ -39,10 +38,10 @@ export const MainLayout = printNameOnRender(({ message }) => {
           </div>
       </header>
         <Switch>
-          <Route exact path="/" render={props => <LoginPage {...props} message={message} />} />
+          <Route exact path="/" component={LoginPage} />
           {!isUserLoggedIn && <Redirect to="/" />}
-          <Route exact path="/app" render={props => <PostsListPage {...props} message={message} />} />
-          <Route exact path="/post/:id" render={props => <PostDetailsPage {...props} message={message} />} />
+          <Route exact path="/app" component={PostsListPage} />
+          <Route exact path="/post/:id" component={PostDetailsPage} />
           <Redirect to="/" />
         </Switch>
 
@@ -54,4 +53,4 @@ export const MainLayout = printNameOnRender(({ message }) => {
       </div>
     </div>
   );
-}, 'MainLayout');
+}

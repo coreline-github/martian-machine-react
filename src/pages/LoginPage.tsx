@@ -3,9 +3,8 @@ import { useLocalStorage, writeStorage, deleteFromStorage } from '@rehooks/local
 import useReactRouter from 'use-react-router';
 
 import '../style/login.css';
-import { printNameOnRender } from '../utils/print-name-on-render';
 
-export const LoginPage = printNameOnRender(() => {
+export const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -64,4 +63,4 @@ export const LoginPage = printNameOnRender(() => {
       </form>
     </div>
   );
-}, 'LoginPage');
+};

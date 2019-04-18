@@ -4,11 +4,11 @@ import { useEffectAsync } from '../utils/use-effect-async';
 import { getPost } from '../api/api-client';
 import { IPostWithUserAndComments } from '../api/api-types';
 import { PostView } from '../components/PostView';
-import { IPrintNameProps, printNameOnRender } from '../utils/print-name-on-render';
+import { IPrintNameProps } from '../utils/print-name-on-render';
 
 export type IProps = RouteComponentProps<{ id: string; }> & IPrintNameProps;
 
-export const PostDetailsPage = printNameOnRender((props: IProps) => {
+export const PostDetailsPage = (props: IProps) => {
   const [post, setPost] = useState<IPostWithUserAndComments | undefined>(undefined);
 
   const id = parseInt(props.match.params.id);
@@ -22,5 +22,5 @@ export const PostDetailsPage = printNameOnRender((props: IProps) => {
     return <div>Loading...</div>
   }
 
-  return <PostView post={post} message={props.message}/>;
-}, 'PostDetailsPage');
+  return <PostView post={post} />;
+};

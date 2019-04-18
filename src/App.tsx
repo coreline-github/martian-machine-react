@@ -2,14 +2,13 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { MainLayout } from './meta-pages/MainLayout';
-import { printNameOnRender } from './utils/print-name-on-render';
 
-const App = printNameOnRender(({ message }) => {
+const App = () => {
   return (
     <BrowserRouter>
-      <MainLayout message={message} />
+      <MainLayout />
     </BrowserRouter>
   );
-}, 'App');
+};
 
 export default App;

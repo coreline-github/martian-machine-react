@@ -1,5 +1,13 @@
 import axios from 'axios';
+import bluebird from 'bluebird';
+const { setupCache } = require('axios-cache-adapter');
+
 import { IComment, IPost, IPostWithUserAndComments, IUser } from './api-types';
+
+export const cache = setupCache({
+  maxAge: 15 * 60 * 1000,
+  exclude: { query: false },
+});
 
 const authenticatedAxios = axios.create({
   headers: {
@@ -7,31 +15,31 @@ const authenticatedAxios = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
-  baseURL: 'https://demo.martian.agency/api'
+  baseURL: 'https://demo.martian.agency/api',
+  adapter: cache.adapter,
 });
 
-export async function getPosts() {
-  return (await authenticatedAxios.get<IPost[]>('posts')).data;
+export async function getPosts(userId?: number) {
+  return (await authenticatedAxios.get<IPost[]>('posts', { params: { userId } })).data;
 }
 
 export async function getUsers() {
   return (await authenticatedAxios.get<IUser[]>('users')).data;
 }
 
-export async function getComments() {
-  return (await authenticatedAxios.get<IComment[]>('comments')).data;
+export async function getComments(postId: number | undefined) {
+  return (await authenticatedAxios.get<IComment[]>('comments', { params: { postId } })).data;
 }
 
-export async function getPostsWithUsersAndComments(): Promise<IPostWithUserAndComments[]> {
-  const posts = await getPosts();
+export async function getPostsWithUsersAndComments(userId?: number): Promise<IPostWithUserAndComments[]> {
+  const posts = await getPosts(userId);
   const users = await getUsers();
-  const comments = await getComments();
 
-  return posts.map(post => ({
+  return bluebird.map(posts, post => bluebird.props(({
     ...post,
     user: users.filter(user => user.id === post.userId)[0],
-    comments: comments.filter(comment => comment.postId === post.id),
-  }))
+    comments: getComments(post.id),
+  })));
 }
 
 export function filterPosts(posts: IPostWithUserAndComments[], filterText: string) {

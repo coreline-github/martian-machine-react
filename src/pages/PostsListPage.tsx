@@ -1,39 +1,38 @@
 import React, { useState } from 'react';
 import { useEffectAsync } from '../utils/use-effect-async';
-import { filterPosts, getPostsWithUsersAndComments } from '../api/api-client';
+import { cache, getPostsWithUsersAndComments } from '../api/api-client';
 import { IPostWithUserAndComments } from '../api/api-types';
 import { PostView } from '../components/PostView';
 import { injectMessage, InjectMessageProps } from '../utils/inject-message';
+import { UserSelectInput } from '../components/UserSelectInput';
 
 export const PostsListPage = injectMessage((props: InjectMessageProps) => {
   console.log(`${props.message} PostListPage`);
 
+  const [userId, setUserId] = useState<number | undefined>(undefined);
   const [posts, setPosts] = useState<IPostWithUserAndComments[]>([]);
-  const [filterText, setFilterText] = useState('');
   const [loading, setLoading] = useState(true);
 
+  console.log('cache.store.length()', cache.store.length());
+
   useEffectAsync(async () => {
-    setPosts(await getPostsWithUsersAndComments());
+    setLoading(true);
+    setPosts(await getPostsWithUsersAndComments(userId));
     setLoading(false);
-  }, []);
-
-  const filteredPosts = filterPosts(posts, filterText);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  }, [userId]);
 
   return (
     <div>
       <br />
       <div>
         Display only posts from user &nbsp;
-        <input type="text" value={filterText} onChange={e => setFilterText(e.target.value)}/>
+        <UserSelectInput onChange={setUserId} value={userId}/>
       </div>
       <br />
-      {filteredPosts.map(post => (
-        <PostView post={post} key={post.id}/>
-      ))}
+      {loading ?
+        <div>Loading...</div> :
+        posts.map(post => <PostView post={post} key={post.id}/>)
+      }
       <div className="col-md-12 gap10" />
     </div>
   );

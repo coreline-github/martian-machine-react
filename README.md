@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Authentication
+
+This project hard codes token for access to https://demo.martian.agency API.
+User `ivo@coreline.agency` with password `password` can be used for authentication.
+
 ## Available Scripts
 
 In the project directory, you can run:

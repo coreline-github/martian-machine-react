@@ -1,8 +1,8 @@
 @media (max-width: 700px) {
-  .dropdown-container {
+  .select-container {
     flex-direction: column;
   }
-  .select-container {
+  .select-wrapper {
     width: 100%;
     margin: 20px 20px 0 20px !important;
   }

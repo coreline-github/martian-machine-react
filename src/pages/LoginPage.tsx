@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { useLocalStorage, writeStorage, deleteFromStorage } from '@rehooks/local-storage';
 import useReactRouter from 'use-react-router';
 
 import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
-const loginStyle = {
+const loginStyle: CSSProperties = {
   display: 'flex',
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
-} as any;
+};
 
 const inputStyle = {
   marginBottom: '20px',
   padding: '22px',
 };
 
-const buttonStyle = {
+const buttonStyle: CSSProperties = {
   marginBottom: '20px',
-} as any;
+};
 
 export const LoginPage = injectMessage((props: InjectMessageProps) => {
   console.log(`${props.message} LoginPage`);

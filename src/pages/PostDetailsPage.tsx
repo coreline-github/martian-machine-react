@@ -5,6 +5,7 @@ import { getPost } from '../api/api-client';
 import { IPostWithUserAndComments } from '../api/api-types';
 import { PostView } from '../components/PostView';
 import { injectMessage, InjectMessageProps } from '../utils/inject-message';
+import { Spinner } from '../components/Spinner';
 
 export type IProps = RouteComponentProps<{ id: string; }>;
 
@@ -21,7 +22,7 @@ export const PostDetailsPage = injectMessage((props: IProps & InjectMessageProps
   }, [id]);
 
   if (!post) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   return <PostView post={post} displayDetails />;

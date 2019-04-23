@@ -13,30 +13,21 @@ import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
 export const MainLayout = injectMessage((props: InjectMessageProps) => {
   console.log(`${props.message} MainLayout`);
-
-  const { location } = useReactRouter();
   const [userId] = useLocalStorage('userId');
 
   const isUserLoggedIn = !!userId;
 
-  const path = location ? location.pathname : '';
-
   return (
-    <div className="text-center" style={{ width: '100%', height: '100%' }}>
-      <div className="cover-container d-flex h-100 p-3 mx-auto flex-column">
-        <header className="masthead mb-auto">
+    <div style={{ width: '100%', height: '100%' }}>
+      <div className="cover-container d-flex h-100 mx-auto flex-column">
+        <header className="masthead mb-auto" style={{ backgroundColor: '#005662' }}>
           <div className="inner">
-            <h3 className="masthead-brand">Martian Machine Blogger</h3>
-              <nav className="nav nav-masthead justify-content-center">
-                {isUserLoggedIn &&
-                  <Link
-                    className={cx('nav-link', (path.startsWith('/app') || path.startsWith('/post')) && 'active')}
-                    to="/app"
-                  >
-                    Posts
-                  </Link>
-                }
-              </nav>
+            <h3
+              className="masthead-brand"
+              style={{ textAlign: 'left', color: 'white', margin: '.5rem 0 .5rem 1rem', display: 'flex', height: 50, alignItems: 'center' }}
+            >
+              Martian Machine Blogger
+            </h3>
           </div>
       </header>
         <Switch>

@@ -24,5 +24,5 @@ export const PostDetailsPage = injectMessage((props: IProps & InjectMessageProps
     return <div>Loading...</div>
   }
 
-  return <PostView post={post} />;
+  return <PostView post={post} displayDetails />;
 });

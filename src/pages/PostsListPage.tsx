@@ -6,6 +6,8 @@ import { PostView } from '../components/PostView';
 import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 import { UserSelectInput } from '../components/UserSelectInput';
 
+import '../style/dropdown.css';
+
 export const PostsListPage = injectMessage((props: InjectMessageProps) => {
   console.log(`${props.message} PostListPage`);
 
@@ -21,17 +23,24 @@ export const PostsListPage = injectMessage((props: InjectMessageProps) => {
 
   return (
     <div>
-      <div style={{ display: 'flex', maxWidth: 650, padding: '0 15px', alignItems: 'center', margin: '30px auto 0 auto' }}>
+      <div
+        className="dropdown-container"
+        style={{ display: 'flex', maxWidth: 650, alignItems: 'center', margin: '30px auto 0 auto', padding: '0 15px' }}
+      >
         <div>
           Display only posts from user &nbsp;
         </div>
-        <div style={{ flex: 1, margin: '0 20px' }}>
+        <div className="select-container" style={{ flex: 1, margin: '0 20px' }}>
           <UserSelectInput onChange={setUserId} value={userId}/>
         </div>
       </div>
       <div>
         {loading ?
-          <div>Loading...</div> :
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
+            <div className="spinner-grow text-secondary" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div> :
           posts.map(post => <PostView post={post} key={post.id}/>)
         }
       </div>

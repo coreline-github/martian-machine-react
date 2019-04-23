@@ -8,7 +8,6 @@ import { LoginPage } from '../pages/LoginPage';
 import { PostDetailsPage } from '../pages/PostDetailsPage';
 import { PostsListPage } from '../pages/PostsListPage';
 
-// import '../style/cover.css';
 import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
 export const MainLayout = injectMessage((props: InjectMessageProps) => {
@@ -20,7 +19,7 @@ export const MainLayout = injectMessage((props: InjectMessageProps) => {
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <div className="cover-container d-flex h-100 mx-auto flex-column">
-        <header className="masthead mb-auto" style={{ backgroundColor: '#005662' }}>
+        <header className="masthead" style={{ backgroundColor: '#005662' }}>
           <div className="inner">
             <h3
               className="masthead-brand"

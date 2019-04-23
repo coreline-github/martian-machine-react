@@ -26,15 +26,18 @@ export const PostView = injectMessage((props: IProps) => {
         </Link>
         <em>by {post.user.name}</em>
         <article style={{ marginTop: 12 }}>
-          <p>
+          <p style={{ marginBottom: '3rem' }}>
             {post.body}
           </p>
           {displayDetails && post.comments.map(comment => (
-            <div key={comment.id}>
-              {comment.name} ~ {comment.body}
+            <div style={{ marginTop: 8 }} key={comment.id}>
+              <div>{comment.name}</div>
+              <div style={{ marginTop: 8 }}>{comment.body}</div>
+              <div style={{ height: '2px', backgroundColor: '#00838f', margin: '30px 0 25px 0' }} />
             </div>
           ))}
         </article>
+        {!displayDetails && <div style={{ height: 2, backgroundColor: '#00838f' }} />}
       </div>
   );
 });

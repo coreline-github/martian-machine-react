@@ -4,9 +4,6 @@ import { getUsers } from '../api/api-client';
 import { IUser } from '../api/api-types';
 import { numberToSelectValue, selectEventToValue } from '../utils/select-value';
 
-import axios from 'axios';
-jest.mock('axios');
-
 export interface IProps {
   value?: number;
   onChange(value: number | undefined): void;

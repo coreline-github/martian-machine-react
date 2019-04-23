@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-
 import { useEffectAsync } from '../utils/use-effect-async';
 import { getUsers } from '../api/api-client';
 import { IUser } from '../api/api-types';
 import { numberToSelectValue, selectEventToValue } from '../utils/select-value';
+
+import axios from 'axios';
+jest.mock('axios');
 
 export interface IProps {
   value?: number;

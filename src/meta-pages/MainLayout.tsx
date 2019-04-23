@@ -8,7 +8,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { PostDetailsPage } from '../pages/PostDetailsPage';
 import { PostsListPage } from '../pages/PostsListPage';
 
-import '../style/cover.css';
+// import '../style/cover.css';
 import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
 export const MainLayout = injectMessage((props: InjectMessageProps) => {
@@ -28,7 +28,6 @@ export const MainLayout = injectMessage((props: InjectMessageProps) => {
           <div className="inner">
             <h3 className="masthead-brand">Martian Machine Blogger</h3>
               <nav className="nav nav-masthead justify-content-center">
-                <Link className={cx('nav-link', path == '/' && 'active')} to="/">Home</Link>
                 {isUserLoggedIn &&
                   <Link
                     className={cx('nav-link', (path.startsWith('/app') || path.startsWith('/post')) && 'active')}

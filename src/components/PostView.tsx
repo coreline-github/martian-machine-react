@@ -3,6 +3,8 @@ import { IPostWithUserAndComments } from '../api/api-types';
 import { Link } from 'react-router-dom';
 import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
+// import '../style/post.css'
+
 export interface IProps extends InjectMessageProps {
   post: IPostWithUserAndComments;
 }
@@ -17,9 +19,10 @@ export const PostView = injectMessage((props: IProps) => {
   const { post } = props;
 
   return (
-    <Link to={`/post/${post.id}`} style={linkStyle}>
-      <div className="col-md-10 blogShort">
-        <h4>{post.title}</h4>
+      <div className="col-md-12">
+        <Link to={`/post/${post.id}`} style={linkStyle}>
+          <h4>{post.title}</h4>
+        </Link>
         <em>by {post.user.name}</em>
         <article>
           <p>
@@ -31,10 +34,6 @@ export const PostView = injectMessage((props: IProps) => {
             </div>
           ))}
         </article>
-        <br />
-        <br />
-        <br />
       </div>
-    </Link>
   );
 });

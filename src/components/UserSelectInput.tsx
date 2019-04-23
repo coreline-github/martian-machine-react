@@ -20,7 +20,7 @@ export const UserSelectInput = (props: IProps) => {
 
   return (
     <select className="custom-select" onChange={e => onChange(selectEventToValue(e))} value={numberToSelectValue(value)}>
-      <option value={numberToSelectValue(undefined)}>-</option>
+      <option value={numberToSelectValue(undefined)}>Everyone</option>
       {users.map(user => (
         <option key={user.id} value={numberToSelectValue(user.id)}>{user.name}</option>
       ))}

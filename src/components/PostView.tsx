@@ -3,8 +3,6 @@ import { IPostWithUserAndComments } from '../api/api-types';
 import { Link } from 'react-router-dom';
 import { injectMessage, InjectMessageProps } from '../utils/inject-message';
 
-// import '../style/post.css'
-
 export interface IProps extends InjectMessageProps {
   post: IPostWithUserAndComments;
   displayDetails?: Boolean;
